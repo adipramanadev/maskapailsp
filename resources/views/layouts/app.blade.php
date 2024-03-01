@@ -43,12 +43,15 @@
                                 <a class="nav-link" href="{{ route('transaksi.index') }}">Transaksi</a>
                             </li>
                         </ul>
-                    @else
+                    @elseif (Auth::check() && Auth::user()->role == 'user')
                         <ul class="navbar-nav me-auto">
                             <li>
                                 <a class="nav-link" href="{{ route('transaksi.index') }}">Transaksi</a>
                             </li>
                         </ul>
+                    @else
+                    <ul class="navbar-nav me-auto">
+                    </ul>
                     @endif
 
 
