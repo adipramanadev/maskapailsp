@@ -61,7 +61,7 @@ class TransaksiController extends Controller
         // ]);
         $trx = new Transaksi(); 
         $trx->penerbangan_id = $request->penerbangan_id;
-        $trx->user_id = 1; 
+        $trx->user_id = Auth::user()->id; 
         $trx->qty = $request->qty; 
         $trx->status = 'unpaid'; 
         $trx->adm_conf = 'Process'; 
