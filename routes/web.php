@@ -48,7 +48,9 @@ Route::get('transaksi',
 Route::get('transaksi/create',
     [App\Http\Controllers\TransaksiController::class, 'create'])->name('transaksi.create');
 Route::post('transaksi/store',[App\Http\Controllers\TransaksiController::class, 'store'])->name('transaksi.store');
+Route::get('transaksi/edit/{id}', [App\Http\Controllers\TransaksiController::class, 'edit'])->name('transaksi.edit');
 Route::get('transaksi/destroy/{id}',[App\Http\Controllers\TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+Route::put('transaksi/update/{id}', [App\Http\Controllers\TransaksiController::class, 'update'])->name('transaksi.update');
 Route::get('checkout',
     [App\Http\Controllers\TransaksiController::class, 'checkout'])->name('transaksi.checkout');
 
