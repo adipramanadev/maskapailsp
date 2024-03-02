@@ -49,6 +49,12 @@
                                 <a class="nav-link" href="{{ route('transaksi.index') }}">Transaksi</a>
                             </li>
                         </ul>
+                    @elseif (Auth::check() && Auth::user()->role == 'maskapai')
+                        <ul class="navbar-nav me-auto">
+                            <li>
+                                <a class="nav-link" href="{{ route('transaksi.index') }}">Transaksi</a>
+                            </li>
+                        </ul>
                     @else
                         <ul class="navbar-nav me-auto">
                         </ul>
