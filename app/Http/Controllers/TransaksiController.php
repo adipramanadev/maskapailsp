@@ -61,7 +61,7 @@ class TransaksiController extends Controller
         // ]);
         $trx = new Transaksi(); 
         $trx->penerbangan_id = $request->penerbangan_id;
-        $trx->user_id = 1; 
+        $trx->user_id = Auth::user()->id; 
         $trx->qty = $request->qty; 
         $trx->status = 'unpaid'; 
         $trx->adm_conf = 'Process'; 
@@ -119,17 +119,27 @@ class TransaksiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Transaksi $transaksi)
+    public function edit($id)
     {
         //
+        $transaksi = Transaksi::find($id);
+        return view('trxuser.trxedit', compact('transaksi'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transaksi $transaksi)
+    public function update(Request $request,$id)
     {
         //
+        $input=$request->all();
+        $transaksi = Transaksi::find($id);
+        $transaksi->status = $input['status'];
+        if($input['status'] == 'paid'){
+            $transaksi->adm_conf = 'Confirmed';
+        }
+        $transaksi->save();
+        return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil diupdate');
     }
 
     /**

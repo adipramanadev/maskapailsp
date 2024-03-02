@@ -16,7 +16,12 @@
                     </div>
 
                     <div class="card-body">
-                        <a href="{{ route('transaksi.create') }}" class="btn btn-outline-primary">Tambah</a>
+                        @if (Auth::check() && Auth::user()->role == 'maskapai')
+                            <span class="btn btn-success">{{ Auth::user()->name }}</span>
+                        @elseif (Auth::check() && Auth::user()->role == 'user' && Auth::user()->role == 'admin')
+                            <a href="{{ route('transaksi.create') }}" class="btn btn-outline-primary">Tambah</a>
+                        @endif
+
                         <br><br>
                         <div class="table-responsive">
                             <table class="table table-bordered">
@@ -28,7 +33,32 @@
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
-
+                                    @forelse ($transaksi as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->listTransaksi->name }}</td>
+                                            <td>{{ $item->qty }}</td>
+                                            <td>{{ $item->total }}</td>
+                                            <td>
+                                                &nbsp;
+                                                @if (Auth::check() && Auth::user()->role == 'admin')
+                                                    <a href="{{ route('transaksi.edit', $item->id) }}"
+                                                        class="btn btn-outline-warning">Edit</a>
+                                                @elseif(Auth::check() && Auth::user()->role == 'maskapai')
+                                                    <span class="btn btn-outline-warning">test</span>
+                                                @endif
+                                                @if ($item->status == 'unpaid')
+                                                    <span class="btn btn-warning">Unpaid</span>
+                                                @else
+                                                    <span class="btn btn-success">Paid</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">Tidak ada data</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
