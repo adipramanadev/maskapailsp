@@ -50,8 +50,8 @@
                             </li>
                         </ul>
                     @else
-                    <ul class="navbar-nav me-auto">
-                    </ul>
+                        <ul class="navbar-nav me-auto">
+                        </ul>
                     @endif
 
 
